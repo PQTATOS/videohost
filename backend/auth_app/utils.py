@@ -1,15 +1,16 @@
 from passlib.context import CryptContext
-
-import os
+from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timedelta
-from typing import Union, Any
 from jose import jwt
 
 from backend.schemas.users import UserShow, UserCreate
 from backend.models.userDAL import UserDal
+from backend.models.users import User
+
+from backend import settings
 
 
-async def create_new_user(user: UserCreate, db_session) -> UserShow:
+async def create_new_user(user: UserCreate, db_session: AsyncSession) -> UserShow:
     async with db_session.begin():
         user_dal = UserDal(db_session)
         user.hashed_password = get_hashed_password(user.hashed_password)
@@ -17,10 +18,26 @@ async def create_new_user(user: UserCreate, db_session) -> UserShow:
         return UserShow(id=new_user.id, email=new_user.email, username=new_user.username, is_active=new_user.is_active)
 
 
+async def login_user(email: str, password: str,  db_session: AsyncSession):
+    user = await get_user_by_email(email, db_session)
+    if user is None:
+        return
+    if not verify_password(password, user.hashed_password):
+        return
+    return user
 
-SECRET_KEY = "b8dfa5e07d4f5e8b4f96d4872e236406bb3a1aa6b2a18176b945eac3c5254ca0"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # 30 minutes
-ALGORITHM = "HS256"
+
+async def get_user_by_email(email: str, db_session: AsyncSession) -> User:
+    async with db_session.begin():
+        user_dal = UserDal(db_session)
+        return await user_dal.get_user_by_email(email)
+
+
+def create_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
