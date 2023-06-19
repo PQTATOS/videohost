@@ -16,7 +16,7 @@ const Register = () => {
             headers: {"Content-Type": "application/json",},
             body: JSON.stringify({email: email, username: username, password: password}),
         };
-        const response = await fetch("http://127.0.0.1:8000/auth/signup", requestOptions);
+        const response = await fetch("https://videohost-back.onrender.com/auth/signup", requestOptions);
         const data = await response.json();
 
         if (!response.ok) {

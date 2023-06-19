@@ -18,7 +18,7 @@ const ViewVideo = () => {
       headers: { "Content-Type": "application/json", },
         }
 
-        const response = await fetch(`http://127.0.0.1:8000/video/watch?video_id=${video_id}`, requestOptions)
+        const response = await fetch(`https://videohost-back.onrender.com/video/watch?video_id=${video_id}`, requestOptions)
         const data = await response.json()
 
         if(!response.ok) {
@@ -35,7 +35,7 @@ const ViewVideo = () => {
       headers: { "Content-Type": "application/json", },
         }
 
-        const response = await fetch(`http://127.0.0.1:8000/video/comments?video_id=${video_id}`, requestOptions)
+        const response = await fetch(`https://videohost-back.onrender.com/video/comments?video_id=${video_id}`, requestOptions)
         const data = await response.json()
 
         if(!response.ok) {
@@ -52,7 +52,7 @@ const ViewVideo = () => {
             headers: {"Content-Type": "application/x-www-form-urlencoded",
              Authorization: "Bearer " + token},
         };
-        const response = await fetch(`http://127.0.0.1:8000/video/like?video_id=${video_id}`, requestOptions);
+        const response = await fetch(`https://videohost-back.onrender.com/video/like?video_id=${video_id}`, requestOptions);
         const data = await response.json()
 
         setIsLiked(data)
@@ -65,7 +65,7 @@ const ViewVideo = () => {
              Authorization: "Bearer " + token},
             body: `content=${com}`,
         };
-        await fetch(`http://127.0.0.1:8000/video/comment?video_id=${video_id}`, requestOptions);
+        await fetch(`https://videohost-back.onrender.com/video/comment?video_id=${video_id}`, requestOptions);
     };
 
     const submitLike = async () => {
@@ -73,7 +73,7 @@ const ViewVideo = () => {
             method: "POST",
             headers: { Authorization: "Bearer " + token},
         };
-        await fetch(`http://127.0.0.1:8000/video/like?video_id=${video_id}`, requestOptions);
+        await fetch(`https://videohost-back.onrender.com/video/like?video_id=${video_id}`, requestOptions);
     };
 
     const handleSubmitCom = (e) => {

@@ -24,7 +24,7 @@ async def create_user(user: UserCreate, session: AsyncSession = Depends(get_sess
 
         user.hashed_password = get_hashed_password(user.hashed_password)
         new_user = await user_dal.create_user(user)
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token_expires = timedelta(minutes=int(ACCESS_TOKEN_EXPIRE_MINUTES))
         # create jwt token
         access_token = create_token(
             {"sub": str(new_user.id)}, expires_delta=access_token_expires)

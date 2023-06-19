@@ -17,7 +17,7 @@ const UploadVideo = () => {
          formData.append("title", title)
          formData.append("description", description)
 
-        await axios.post(`http://127.0.0.1:8000/video/upload`, formData, {headers: {"Content-Type": "multipart/form-data",
+        await axios.post(`https://videohost-back.onrender.com/video/upload`, formData, {headers: {"Content-Type": "multipart/form-data",
              Authorization: "Bearer " + token},})
     };
 

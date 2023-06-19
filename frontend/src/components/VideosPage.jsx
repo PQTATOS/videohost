@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const  VideosPage = () => {
 
@@ -31,21 +32,21 @@ const  VideosPage = () => {
     return (
         <div>
             <div style={{marginBottom: "50px"}}>
-                <a style={{color: "red"}} href="http://localhost:3000/upload">Upload video</a>
+                <Link style={{color: "red"}} to="/upload">Upload video</Link>
             </div>
         <div>
         <table>
                 <tbody>
                 {videos.map((video) =>
                     (
-                        <a href={`http://localhost:3000/watch/${video.id}`}>
+                        <Link to={`/watch/${video.id}`}>
                             <div><tr>
                             <td>{video.title}</td>
                             <td>{video.link}</td>
                             <td>{video.user_id}</td>
                             <td>{video.published_at}</td>
                             </tr></div>
-                    </a>
+                    </Link>
                     ))}
                 </tbody>
             </table>
