@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
                 },
             };
 
-            const response = await fetch("http://127.0.0.1:8000/auth/me", requestOptions)
+            const response = await fetch("https://videohost-back.onrender.com/auth/me", requestOptions)
 
             if(!response.ok) {
                 setToken(null);

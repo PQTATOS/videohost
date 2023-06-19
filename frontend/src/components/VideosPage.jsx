@@ -14,7 +14,7 @@ const  VideosPage = () => {
       },
     }
 
-    const response = await fetch("http://127.0.0.1:8000/video/", requestOptions);
+    const response = await fetch("https://videohost-back.onrender.com/video/", requestOptions);
         const data = await response.json();
 
         if(!response.ok) {
