@@ -1,4 +1,9 @@
-from pydantic import BaseModel, Field, EmailStr, UUID4
+from pydantic import BaseModel, Field, EmailStr
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
 
 
 class UserCreate(BaseModel):

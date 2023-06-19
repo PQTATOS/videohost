@@ -1,8 +1,4 @@
-import uuid
-
 from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import text
 
 from backend.database import Base
 

@@ -9,6 +9,9 @@ from alembic import context
 
 from backend.database import Base
 from backend.models.users import User
+from backend.models.videos import Video
+from backend.models.likes import Like
+from backend.models.comments import Comment
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
